@@ -19,3 +19,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('/productos', 'ProductController');
 Route::resource('/ordenes', 'OrderController');
+Route::get('comprar/{id}', 'OrderController@create');
