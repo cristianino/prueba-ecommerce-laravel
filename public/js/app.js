@@ -50393,7 +50393,16 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
 
 var app = new Vue({
   store: _store__WEBPACK_IMPORTED_MODULE_0__["default"],
-  el: '#app'
+  // add vuex to vue
+  el: '#app',
+  data: {
+    date: '2019'
+  },
+  methods: {
+    comprar: function comprar() {
+      console.log('comprando');
+    }
+  }
 });
 
 /***/ }),
@@ -50533,10 +50542,11 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       title: 'Ecommerce'
     },
     userInfo: {
+      // this is important beacuse the plataform depented to this.
       state: false,
+      //define user status (auth is true)
       data: null
-    },
-    firebaseConfig: null
+    }
   },
   mutations: {},
   actions: {}

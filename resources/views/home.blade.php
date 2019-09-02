@@ -5,6 +5,9 @@
   body {
   	font-family: "Open Sans", sans-serif;
   }
+  a{
+    color: #ffc000;
+  }
   h2 {
   	color: #000;
   	font-size: 26px;
@@ -163,23 +166,17 @@
           <div class="carousel-item active">
             <img src="http://lorempixel.com/1020/500/" class="d-block w-100" alt="...">
             <div class="carousel-caption d-none d-md-block">
-              <h5>First slide label</h5>
-              <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+              <h5>Tienda electronica</h5>
+              <p>Los mejores precios.</p>
             </div>
           </div>
           <div class="carousel-item">
             <img src="http://lorempixel.com/1020/501/" class="d-block w-100" alt="...">
             <div class="carousel-caption d-none d-md-block">
-              <h5>Second slide label</h5>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <h5>Facilidad de compra</h5>
+              <p>Todos los medios de pagos grcias a Paytopay.</p>
             </div>
           </div>
-          <div class="carousel-item">
-            <img src="http://lorempixel.com/1020/502/" class="d-block w-100" alt="...">
-            <div class="carousel-caption d-none d-md-block">
-              <h5>Third slide label</h5>
-              <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-            </div>
           </div>
         </div>
         <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
@@ -195,7 +192,7 @@
   </header>
   <div class="row">
 		<div class="col-md-12">
-			<h2>Trending <b>Products</b></h2>
+			<h2><b>productos</b> populares</h2>
 			<div id="carouselProduct" class="carousel slide" data-ride="carousel" data-interval="0">
 			<!-- Carousel indicators -->
 			<ol class="carousel-indicators">
@@ -214,17 +211,8 @@
 								</div>
 								<div class="thumb-content">
 									<h4>Apple iPad</h4>
-									<p class="item-price"><strike>$400.00</strike> <span>$369.00</span></p>
-									<div class="star-rating">
-										<ul class="list-inline">
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star"></i></li>
-											<li class="list-inline-item"><i class="fa fa-star-o"></i></li>
-										</ul>
-									</div>
-									<a href="#" class="btn btn-primary">Add to Cart</a>
+									<p class="item-price"><span>$369.00</span></p>
+									<a href="#" class="btn btn-primary">Comprar</a>
 								</div>
 							</div>
 						</div>
@@ -245,7 +233,7 @@
 											<li class="list-inline-item"><i class="fa fa-star-o"></i></li>
 										</ul>
 									</div>
-									<a href="#" class="btn btn-primary">Add to Cart</a>
+									<a href="#" class="btn btn-primary" @click="comprar">Comprar</a>
 								</div>
 							</div>
 						</div>
@@ -266,7 +254,7 @@
 											<li class="list-inline-item"><i class="fa fa-star-half-o"></i></li>
 										</ul>
 									</div>
-									<a href="#" class="btn btn-primary">Add to Cart</a>
+									<a href="#" class="btn btn-primary" @click="comprar">Comprar</a>
 								</div>
 							</div>
 						</div>
@@ -287,7 +275,7 @@
 											<li class="list-inline-item"><i class="fa fa-star-o"></i></li>
 										</ul>
 									</div>
-									<a href="#" class="btn btn-primary">Add to Cart</a>
+									<a href="#" class="btn btn-primary" @click="comprar">Comprar</a>
 								</div>
 							</div>
 						</div>
@@ -312,7 +300,7 @@
 											<li class="list-inline-item"><i class="fa fa-star-o"></i></li>
 										</ul>
 									</div>
-									<a href="#" class="btn btn-primary">Add to Cart</a>
+									<a href="#" class="btn btn-primary" @click="comprar">Comprar</a>
 								</div>
 							</div>
 						</div>
@@ -333,7 +321,7 @@
 											<li class="list-inline-item"><i class="fa fa-star-half-o"></i></li>
 										</ul>
 									</div>
-									<a href="#" class="btn btn-primary">Add to Cart</a>
+									<a href="#" class="btn btn-primary" @click="comprar">Comprar</a>
 								</div>
 							</div>
 						</div>
@@ -354,7 +342,7 @@
 											<li class="list-inline-item"><i class="fa fa-star-o"></i></li>
 										</ul>
 									</div>
-									<a href="#" class="btn btn-primary">Add to Cart</a>
+									<a href="#" class="btn btn-primary" @click="comprar">Comprar</a>
 								</div>
 							</div>
 						</div>
@@ -375,7 +363,7 @@
 											<li class="list-inline-item"><i class="fa fa-star-o"></i></li>
 										</ul>
 									</div>
-									<a href="#" class="btn btn-primary">Add to Cart</a>
+									<a href="#" class="btn btn-primary" @click="comprar">Comprar</a>
 								</div>
 							</div>
 						</div>
@@ -400,7 +388,7 @@
 											<li class="list-inline-item"><i class="fa fa-star-o"></i></li>
 										</ul>
 									</div>
-									<a href="#" class="btn btn-primary">Add to Cart</a>
+									<a href="#" class="btn btn-primary" @click="comprar">Comprar</a>
 								</div>
 							</div>
 						</div>
@@ -421,7 +409,7 @@
 											<li class="list-inline-item"><i class="fa fa-star-o"></i></li>
 										</ul>
 									</div>
-									<a href="#" class="btn btn-primary">Add to Cart</a>
+									<a href="#" class="btn btn-primary" @click="comprar">Comprar</a>
 								</div>
 							</div>
 						</div>
@@ -442,7 +430,7 @@
 											<li class="list-inline-item"><i class="fa fa-star-o"></i></li>
 										</ul>
 									</div>
-									<a href="#" class="btn btn-primary">Add to Cart</a>
+									<a href="#" class="btn btn-primary" @click="comprar">Comprar</a>
 								</div>
 							</div>
 						</div>
@@ -463,7 +451,7 @@
 											<li class="list-inline-item"><i class="fa fa-star-o"></i></li>
 										</ul>
 									</div>
-									<a href="#" class="btn btn-primary">Add to Cart</a>
+									<a href="#" class="btn btn-primary" @click="comprar">Comprar</a>
 								</div>
 							</div>
 						</div>

@@ -31,4 +31,12 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 const app = new Vue({
     store, // add vuex to vue
     el: '#app',
+    data: {
+      date: '2019',
+    },
+    methods: {
+      comprar: function () {
+        console.log('comprando');
+      }
+    }
 });

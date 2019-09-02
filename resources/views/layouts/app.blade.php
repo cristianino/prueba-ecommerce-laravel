@@ -68,6 +68,9 @@
                                     </form>
                                 </div>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('ordenes') }}">Ordenes</a>
+                            </li>
                         @endguest
                     </ul>
                 </div>
@@ -81,7 +84,7 @@
       <footer class="page-footer font-small blue">
 
         <!-- Copyright -->
-        <div class="footer-copyright text-center py-3">&copy; @{{ new Date().getFullYear() }} Copyright -
+        <div class="footer-copyright text-center py-3">&copy; 2019 Copyright -
           <a href="https://personal-eb4bc.firebaseapp.com/"> Tecnovulario</a>
         </div>
         <!-- Copyright -->
