@@ -20,7 +20,7 @@ class CreateOrdersTable extends Migration
             $table->string('customer_mobile', 40);
             $table->string('status', 20)->default('CREATED'); //Valor por efecto
             $table->unsignedBigInteger('user_id'); //Relación con el usuario
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users'); // Llaves foraneas
             $table->timestamps();
         });
     }
