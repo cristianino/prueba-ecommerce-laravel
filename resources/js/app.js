@@ -29,6 +29,6 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  */
 
 const app = new Vue({
-    store,
+    store, // add vuex to vue
     el: '#app',
 });

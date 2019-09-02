@@ -8,8 +8,8 @@ export default new Vuex.Store({
     app: {
       title: 'Ecommerce'
     },
-    userInfo: {
-      state: false,
+    userInfo: { // this is important beacuse the plataform depented to this.
+      state: false, //define user status (auth is true)
       data: null
     },
   },
