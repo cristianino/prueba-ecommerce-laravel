@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+Productos
+@endsection
+
 @section('styles')
 
 @endsection
@@ -13,9 +17,9 @@
     @forelse ($products as $product)
       <div class="col-sm-3">
         <div class="thumb-wrapper">
-          <a href="{{url('producto/{$product->id}')}}">
+          <a href="{{url('productos/{$product->id}')}}">
             <div class="img-box">
-              <img src="{{$product->img}}" class="img-responsive img-fluid" alt="">
+              <img src="{{Storage::url($product->img)}}" class="img-responsive img-fluid" alt="">
             </div>
           </a>
           <div class="thumb-content">
@@ -27,6 +31,9 @@
       </div>
     @empty
         <p class="col-sm-12">No hay productos para mostrar</p>
+        @if (Auth::user()->admin)
+          <a href="{{ url('productos/create')}}">Crear producto</a>
+        @endif
     @endforelse
   </div>
 </div>

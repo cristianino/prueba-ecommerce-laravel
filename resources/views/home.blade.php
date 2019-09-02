@@ -1,12 +1,11 @@
 @extends('layouts.app')
-
+@section('title')
+Inicio
+@endsection
 @section('styles')
   <style type="text/css">
   body {
   	font-family: "Open Sans", sans-serif;
-  }
-  a{
-    color: #ffc000;
   }
   h2 {
   	color: #000;

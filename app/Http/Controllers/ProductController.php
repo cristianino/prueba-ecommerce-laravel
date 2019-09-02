@@ -27,7 +27,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+      return view('producto.create');
     }
 
     /**
@@ -38,7 +38,25 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+          $imagen = $request->file('img');
+          $producto = new Product();
+          $producto->name = $request->input('name');
+          $producto->description = $request->input('description');
+          $producto->price = $request->input('price');
+          $producto->img = $imagen->store('products', 'public');
+          if ($request->input('popular')) {
+            $producto->popular = true;
+          } else {
+            $producto->popular = false;
+          }
+          $producto->save();
+          return redirect('home');
+        } catch (\Exception $e) {
+          $message = $e;
+          $code = 500;
+          return response($message,$code);
+        }
     }
 
     /**
@@ -49,7 +67,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        return $product;
     }
 
     /**

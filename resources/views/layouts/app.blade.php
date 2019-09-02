@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="author" content="Cristian Niño">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Laravel') }} - @yield('title')</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -19,6 +19,14 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style media="screen">
+    a{
+      color: #ffc000;
+    }
+    a:hover{
+      color: #ffc055;
+    }
+    </style>
     @yield('styles')
 </head>
 <body>
@@ -51,6 +59,9 @@
                                 </li>
                             @endif
                         @else
+                          <li class="nav-item">
+                              <a class="nav-link" href="{{ url('ordenes') }}">Ordenes</a>
+                          </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
@@ -67,9 +78,6 @@
                                         @csrf
                                     </form>
                                 </div>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('ordenes') }}">Ordenes</a>
                             </li>
                         @endguest
                     </ul>

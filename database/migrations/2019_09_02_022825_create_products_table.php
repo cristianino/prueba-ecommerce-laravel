@@ -19,7 +19,7 @@ class CreateProductsTable extends Migration
             $table->text('description')->nullable();
             $table->string('price');
             $table->string('img');
-            $table->boolean('popular')->default(false);
+            $table->boolean('popular')->default(false)->nullable();
             $table->timestamps();
         });
     }
