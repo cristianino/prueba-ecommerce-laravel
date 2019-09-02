@@ -5,7 +5,11 @@ Pedir Orden
 @endsection
 
 @section('styles')
-
+<style media="screen">
+  .productos-container{
+    padding-bottom: 2em;
+  }
+</style>
 @endsection
 
 @section('content')
@@ -32,9 +36,6 @@ Pedir Orden
         <label for="img">Dirección del envío</label>
         <input type="text" class="form-control" id="img" name="img" placeholder="Precio">
       </div>
-      <div class="form-group">
-        <button type="submit" name="button" class="btn btn-primary">Siguiente</button>
-      </div>
     </form>
     <div class="col-sm-12 col-md-6 producto-container">
       <div class="card" style="width: 18rem;">
@@ -45,6 +46,17 @@ Pedir Orden
           <p> Total: {{$producto->price}}</p>
         </div>
       </div>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-sm-6">
+      <p class="text-muted">
+        Los servicios de cobro serán proporcionados por PaytoPay.
+      </p>
+    </div>
+
+    <div class="col-sm-6">
+      <button type="button" name="button" class="btn btn-warning btn-lg">Siguiente</button>
     </div>
   </div>
 </div>

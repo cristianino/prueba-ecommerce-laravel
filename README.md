@@ -1,6 +1,11 @@
-# Instalación
+# Instalación (Sólo para base en unix)
 
-### Para instalar el proyecto debe considerar que este es sencible al archivo .env
+### Para instalar el proyecto debe considerar que este es sensible al archivo .env
+
+## Requisitos
+Composer, nodejs.
+
+Para instalar sólo debe ejecutar el comando $ npm run intall
 
 
 ## Acceso
