@@ -11,7 +11,7 @@ Pedir Orden
 @section('content')
 <div class="container">
   <div class="row title-container">
-    <h3>Crear Producto</h3>
+    <h3>Crear orden</h3>
   </div>
   <div class="row productos-container">
     <form class="col-sm-12 col-md-6" action="{{url('/productos')}}" method="post" enctype="multipart/form-data">
@@ -31,10 +31,6 @@ Pedir Orden
       <div class="form-group">
         <label for="img">Dirección del envío</label>
         <input type="text" class="form-control" id="img" name="img" placeholder="Precio">
-      </div>
-      <div class="form-group form-check">
-        <input type="checkbox" class="form-check-input" id="popular" name="popular">
-        <label class="form-check-label" for="popular">¿Favorito? - Sandrá en la pantalla</label>
       </div>
       <div class="form-group">
         <button type="submit" name="button" class="btn btn-primary">Siguiente</button>
