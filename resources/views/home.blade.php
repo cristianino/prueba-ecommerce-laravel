@@ -148,6 +148,10 @@ Inicio
   	font-size: 14px;
   	color: #ffc000;
   }
+
+  .mas-productos-container{
+    padding-top: 2em;
+  }
   </style>
 @endsection
 
@@ -189,7 +193,7 @@ Inicio
       </div>
     </div>
   </header>
-  <div class="row">
+  <div class="row productos-populares-container">
 		<div class="col-md-12">
 			<h2><b>productos</b> populares</h2>
 			<div id="carouselProduct" class="carousel slide" data-ride="carousel" data-interval="0">
@@ -467,5 +471,10 @@ Inicio
 		</div>
 		</div>
 	</div>
+  <div class="row mas-productos-container justify-content-center">
+    <div class="col-sm-2">
+      <button type="button" class="btn btn-outline-warning btn-lg" onclick="window.location.replace('{{url('productos')}}');">Más productos</button>
+    </div>
+  </div>
 </div>
 @endsection

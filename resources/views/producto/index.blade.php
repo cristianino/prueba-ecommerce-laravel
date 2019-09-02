@@ -25,7 +25,7 @@ Productos
           <div class="thumb-content">
             <h4>{{$product->name}}</h4>
             <p class="item-price"><span>{{$product->price}}</span></p>
-            <a href="{{url('comprar/{$product->id}')}}" class="btn btn-primary">Comprar</a>
+            <a href="{{url('comprar/{$product->id}')}}" class="btn btn-warning">Comprar</a>
           </div>
         </div>
       </div>
