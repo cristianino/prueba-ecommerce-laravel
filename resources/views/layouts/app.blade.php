@@ -6,6 +6,7 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="author" content="Cristian Niño">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
@@ -18,6 +19,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @yield('styles')
 </head>
 <body>
     <div id="app">
@@ -75,6 +77,17 @@
         <main class="py-4">
             @yield('content')
         </main>
+        <!-- Footer -->
+      <footer class="page-footer font-small blue">
+
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3">&copy; @{{ new Date().getFullYear() }} Copyright -
+          <a href="https://personal-eb4bc.firebaseapp.com/"> Tecnovulario</a>
+        </div>
+        <!-- Copyright -->
+
+      </footer>
+      <!-- Footer -->
     </div>
 </body>
 </html>
