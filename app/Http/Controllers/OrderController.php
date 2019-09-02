@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -17,9 +18,12 @@ class OrderController extends Controller
        $this->middleware('auth');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        //
+      $orders = Order::where('user_id', Auth::user()->id)->get();
+      return view('ordenes.index', [
+        'orders' => $orders
+      ]);
     }
 
     /**

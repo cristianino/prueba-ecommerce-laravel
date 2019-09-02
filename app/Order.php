@@ -10,8 +10,8 @@ class Order extends Model
     {
       return $this->belongsTo('App\User');
     }
-    public function Order()
+    public function Product()
     {
-      return $this->belongsTo('App\Order');
+      return $this->belongsTo('App\Product');
     }
 }
