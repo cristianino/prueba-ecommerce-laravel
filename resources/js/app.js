@@ -9,6 +9,8 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 import store from './store'
+const axios = require('axios');
+const toastr = require('toastr');
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -33,10 +35,36 @@ const app = new Vue({
     el: '#app',
     data: {
       date: '2019',
+      comprador: {
+        name: '',
+        email: '',
+        mobile: '',
+        address: ''
+      }
     },
     methods: {
       comprar: function () {
         console.log('comprando');
+      },
+      createOrder: function (productId) {
+        console.log('Creando orden', productId);
+          axios.post(this.$store.state.app.url + 'ordenes',{
+            productoId : productId,
+            name : this.comprador.name,
+            email : this.comprador.email,
+            mobile : this.comprador.mobile,
+            address : this.comprador.address
+          }).then(res => {
+            console.log(res.data);
+            toastr.success(res.data)
+          }).catch( e => {
+            toastr.error(e, 'Error guardando orden')
+          })
+        P.on('response', function(data) {
+          console.log('placetopay: ', data);
+            //$("#lightbox-response").html(JSON.stringify(data, null, 2));
+        });
+        console.log('creado');
       }
     }
 });

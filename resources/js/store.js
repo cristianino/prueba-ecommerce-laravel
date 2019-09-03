@@ -6,7 +6,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     app: {
-      title: 'Ecommerce'
+      title: 'Ecommerce',
+      url: window.location.origin + '/'
     },
     userInfo: { // this is important beacuse the plataform depented to this.
       state: false, //define user status (auth is true)
