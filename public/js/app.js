@@ -50911,6 +50911,8 @@ var app = new Vue({
     },
     createOrder: function createOrder(productId) {
       console.log('Creando orden', productId);
+      var urlPlaceToPay = this.$store.state.placeToPay.url; //crear orden interna
+
       axios.post(this.$store.state.app.url + 'ordenes', {
         productoId: productId,
         name: this.comprador.name,
@@ -50922,6 +50924,41 @@ var app = new Vue({
         toastr.success(res.data);
       })["catch"](function (e) {
         toastr.error(e, 'Error guardando orden');
+      });
+      axios.post(urlPlaceToPay + '/api/session', {
+        auth: {
+          "login": "usuarioprueba",
+          "tranKey": "jsHJzM3+XG754wXh+aBvi70D9/4=",
+          "nonce": "TTJSa05UVmtNR000TlRrM1pqQTRNV1EREprWkRVMU9EZz0=",
+          "seed": "2019-04-25T18:17:23-04:00"
+        },
+        locale: "en_CO",
+        buyer: {
+          "name": "Deion",
+          "surname": "Ondricka",
+          "email": "dnetix@yopmail.com",
+          "document": "1040035000",
+          "documentType": "CC",
+          "mobile": 3006108300
+        },
+        payment: {
+          "reference": "3210",
+          "description": "Pago básico de prueba 04032019",
+          "amount": {
+            "currency": "COP",
+            "total": "10000"
+          },
+          "allowPartial": false
+        },
+        expiration: "2019-03-05T00:00:00-05:00",
+        returnUrl: "https://mysite.com/response/3210",
+        ipAddress: "127.0.0.1",
+        userAgent: "PlacetoPay Sandbox"
+      }).then(function (res) {
+        console.log(res.data);
+        toastr.success(res.data);
+      })["catch"](function (e) {
+        toastr.error(e, 'Error enviando petición a PlacetoPay.');
       });
       P.on('response', function (data) {
         console.log('placetopay: ', data); //$("#lightbox-response").html(JSON.stringify(data, null, 2));
@@ -51073,6 +51110,11 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       state: false,
       //define user status (auth is true)
       data: null
+    },
+    placeToPay: {
+      url: 'https://dev.placetopay.com/redirection/',
+      login: '6dd490faf9cb87a9862245da41170ff2',
+      TranKey: '024h1IlD'
     }
   },
   mutations: {},

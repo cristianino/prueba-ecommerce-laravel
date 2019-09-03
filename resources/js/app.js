@@ -48,6 +48,8 @@ const app = new Vue({
       },
       createOrder: function (productId) {
         console.log('Creando orden', productId);
+        let urlPlaceToPay = this.$store.state.placeToPay.url
+          //crear orden interna
           axios.post(this.$store.state.app.url + 'ordenes',{
             productoId : productId,
             name : this.comprador.name,
@@ -59,6 +61,43 @@ const app = new Vue({
             toastr.success(res.data)
           }).catch( e => {
             toastr.error(e, 'Error guardando orden')
+          })
+          axios.post(urlPlaceToPay + '/api/session',{
+            auth: {
+              "login": "usuarioprueba",
+              "tranKey": "jsHJzM3+XG754wXh+aBvi70D9/4=",
+              "nonce": "TTJSa05UVmtNR000TlRrM1pqQTRNV1EREprWkRVMU9EZz0=",
+              "seed": "2019-04-25T18:17:23-04:00"
+            },
+              locale: "en_CO",
+              buyer: {
+                "name": "Deion",
+                "surname": "Ondricka",
+                "email": "dnetix@yopmail.com",
+                "document": "1040035000",
+                "documentType": "CC",
+                "mobile": 3006108300
+            },
+
+              payment: {
+                  "reference": "3210",
+                  "description": "Pago básico de prueba 04032019",
+                  "amount": {
+                      "currency": "COP",
+                      "total": "10000"
+                  },
+                "allowPartial":false
+                },
+
+              expiration: "2019-03-05T00:00:00-05:00",
+              returnUrl: "https://mysite.com/response/3210",
+              ipAddress: "127.0.0.1",
+              userAgent: "PlacetoPay Sandbox"
+          }).then(res => {
+            console.log(res.data);
+            toastr.success(res.data)
+          }).catch( e => {
+            toastr.error(e, 'Error enviando petición a PlacetoPay.')
           })
         P.on('response', function(data) {
           console.log('placetopay: ', data);

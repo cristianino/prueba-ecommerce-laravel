@@ -13,6 +13,11 @@ export default new Vuex.Store({
       state: false, //define user status (auth is true)
       data: null
     },
+    placeToPay:{
+      url: 'https://dev.placetopay.com/redirection/',
+      login: '6dd490faf9cb87a9862245da41170ff2',
+      TranKey: '024h1IlD'
+    }
   },
   mutations: {
 

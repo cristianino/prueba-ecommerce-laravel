@@ -37,9 +37,19 @@ Ordenes
           <td>{{$order->customer_name}}</td>
           <td>{{$order->customer_email}}</td>
           <td>{{$order->customer_address}}</td>
-          <td>{{$order->mobile}}</td>
-          <td>{{$order->status}}</td>
-          <td> <button type="button" name="button" class="btn btn-primary">Reintentar</button> </td>
+          <td>{{$order->customer_mobile}}</td>
+          @if ($order->status == 'CREATED')
+            <td class="text-warning">Pago pendiente</td>
+              <td> <button type="button" name="button" class="btn btn-primary">Pagar</button> </td>
+          @elseif ($order->status == 'PAYED')
+            <td class="text-success">Pagada</td>
+            <td></td>
+          @elseif ($order->status == 'REJECTED')
+            <td class="text-danger">Rechazada</td>
+              <td> <button type="button" name="button" class="btn btn-primary">Reintentar</button> </td>
+          @else
+            <td>Error en la orden</td>
+          @endif
         </tr>
         @empty
             <p class="col-sm-12">No hay ordenes para mostrar</p>
