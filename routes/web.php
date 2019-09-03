@@ -20,3 +20,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('/productos', 'ProductController');
 Route::resource('/ordenes', 'OrderController');
 Route::get('comprar/{id}', 'OrderController@create');
+Route::post('placetopay/callback/{orderId}', 'OrderController@callback');
+Route::get('placetopay/callback/{orderId}', 'OrderController@callback');

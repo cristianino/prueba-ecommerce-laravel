@@ -36,6 +36,10 @@ Pedir Orden
         <label for="address">Dirección del envío</label>
         <input type="text" class="form-control" id="address" v-model="comprador.address" name="address" placeholder="Dirección de residencia">
       </div>
+      <div class="form-group">
+        <label for="address">Documento de identidad CC</label>
+        <input type="text" class="form-control" id="address" v-model="comprador.documento" name="address" placeholder="Cedula de ciudadania">
+      </div>
     </form>
     <div class="col-sm-12 col-md-6 producto-container">
       <div class="card" style="width: 18rem;">
@@ -77,6 +81,7 @@ Pedir Orden
               <p v-if="comprador.email">Email: @{{comprador.email}}</p>
               <p v-if="comprador.mobile">Telefono: @{{comprador.mobile}}</p>
               <p v-if="comprador.address">Dirección de envío: @{{comprador.address}}</p>
+              <p v-if="comprador.documento">CC: @{{comprador.documento}}</p>
             </div>
             <div class="col-sm-6 producto-confirm-container">
               <div class="card" style="width: 18rem;">

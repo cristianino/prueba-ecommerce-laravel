@@ -39,7 +39,8 @@ const app = new Vue({
         name: '',
         email: '',
         mobile: '',
-        address: ''
+        address: '',
+        documento: ''
       }
     },
     methods: {
@@ -47,6 +48,11 @@ const app = new Vue({
         console.log('comprando');
       },
       createOrder: function (productId) {
+
+      P.on('response', function(data) {
+        console.log('placetopay: ', data);
+          //$("#lightbox-response").html(JSON.stringify(data, null, 2));
+      });
         console.log('Creando orden', productId);
         let urlPlaceToPay = this.$store.state.placeToPay.url
           //crear orden interna
@@ -55,54 +61,58 @@ const app = new Vue({
             name : this.comprador.name,
             email : this.comprador.email,
             mobile : this.comprador.mobile,
-            address : this.comprador.address
+            address : this.comprador.address,
+            documento : this.comprador.documento
           }).then(res => {
             console.log(res.data);
-            toastr.success(res.data)
+            var orderId = res.data.orderId
+            var total = res.data.total
+            toastr.success('Orden creada con exito')
+            axios.post(urlPlaceToPay + '/api/session',{
+              auth: {
+                "login": this.$store.state.placeToPay.login,
+                "tranKey": this.$store.state.placeToPay.TranKey,
+                "nonce": "TTJSa05UVmtNR000TlRrM1pqQTRNV1EREprWkRVMU9EZz0=",
+                "seed": "2019-04-25T18:17:23-04:00"
+              },
+                locale: "en_CO",
+                buyer: {
+                  "name": this.comprador.name,
+                  "surname": this.comprador.name,
+                  "email": this.comprador.email,
+                  "document": this.comprador.documento,
+                  "documentType": "CC",
+                  "mobile": this.comprador.mobile
+              },
+
+                payment: {
+                    "reference": orderId,
+                    "description": "Pago básico de prueba 04032019",
+                    "amount": {
+                        "currency": "COP",
+                        "total": total
+                    },
+                  "allowPartial":false
+                  },
+
+                expiration: "2019-03-05T00:00:00-05:00",
+                returnUrl: this.$store.state.placeToPay.url + 'placetopay/callback/' + orderId,
+                ipAddress: "127.0.0.1",
+                userAgent: "PlacetoPay Sandbox"
+            },{
+              "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
+            }).then(res => {
+              this.$store.state.placeToPay.processUrl = res.data.processUrl
+              this.$store.state.placeToPay.requestId = res.data.requestId
+              P.init(this.$store.state.placeToPay.processUrl);
+              toastr.success(res.data)
+            }).catch( e => {
+              toastr.error(e, 'Error enviando petición a PlacetoPay.')
+            })
           }).catch( e => {
             toastr.error(e, 'Error guardando orden')
           })
-          axios.post(urlPlaceToPay + '/api/session',{
-            auth: {
-              "login": "usuarioprueba",
-              "tranKey": "jsHJzM3+XG754wXh+aBvi70D9/4=",
-              "nonce": "TTJSa05UVmtNR000TlRrM1pqQTRNV1EREprWkRVMU9EZz0=",
-              "seed": "2019-04-25T18:17:23-04:00"
-            },
-              locale: "en_CO",
-              buyer: {
-                "name": "Deion",
-                "surname": "Ondricka",
-                "email": "dnetix@yopmail.com",
-                "document": "1040035000",
-                "documentType": "CC",
-                "mobile": 3006108300
-            },
-
-              payment: {
-                  "reference": "3210",
-                  "description": "Pago básico de prueba 04032019",
-                  "amount": {
-                      "currency": "COP",
-                      "total": "10000"
-                  },
-                "allowPartial":false
-                },
-
-              expiration: "2019-03-05T00:00:00-05:00",
-              returnUrl: "https://mysite.com/response/3210",
-              ipAddress: "127.0.0.1",
-              userAgent: "PlacetoPay Sandbox"
-          }).then(res => {
-            console.log(res.data);
-            toastr.success(res.data)
-          }).catch( e => {
-            toastr.error(e, 'Error enviando petición a PlacetoPay.')
-          })
-        P.on('response', function(data) {
-          console.log('placetopay: ', data);
-            //$("#lightbox-response").html(JSON.stringify(data, null, 2));
-        });
         console.log('creado');
       }
     }

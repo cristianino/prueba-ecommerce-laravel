@@ -51,6 +51,7 @@ class OrderController extends Controller
         try {
           $userId = Auth::user()->id;
           $productId = $request['productoId'];
+          $product = Product::find($productId);
           $order = new Order ();
           $order->customer_name = $request['name'];
           $order->customer_email = $request['email'];
@@ -60,10 +61,11 @@ class OrderController extends Controller
           $order->user_id = $userId;
           $order->product_id = $productId;
           $order->save();
-          $message = 'Orden creada exitosamente';
+          $message = ['orderId' => $order->id, 'total' => $product->price];
+          $message = json_encode($message);
           $code = 200;
         } catch (\Exception $e) {
-          $message = 'Algo ocurrio mal';
+          $message = $e;
           $code = 500;
         }
         return response($message, $code);
@@ -112,5 +114,33 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
         //
+    }
+
+    public function callback(Request $request, $orderId)
+    {
+      try {
+        $order = Order::find($orderId);
+        switch ($request['status']) {
+          case 'APPROVED':
+            $order->status = "PAYED";
+            break;
+          case 'REJECTED':
+            $order->status = "REJECTED";
+            break;
+          case 'FAILED':
+            $order->status = "REJECTED";
+            break;
+          default:
+            $order->status = "CREATED";
+            break;
+        }
+        $order->save();
+        $message = $orderId;
+        $code = 200;
+      } catch (\Exception $e) {
+        $message = $e;
+        $code = 500;
+      }
+      return response($message, $code);
     }
 }

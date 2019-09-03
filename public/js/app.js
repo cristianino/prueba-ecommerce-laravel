@@ -50902,7 +50902,8 @@ var app = new Vue({
       name: '',
       email: '',
       mobile: '',
-      address: ''
+      address: '',
+      documento: ''
     }
   },
   methods: {
@@ -50910,6 +50911,11 @@ var app = new Vue({
       console.log('comprando');
     },
     createOrder: function createOrder(productId) {
+      var _this = this;
+
+      P.on('response', function (data) {
+        console.log('placetopay: ', data); //$("#lightbox-response").html(JSON.stringify(data, null, 2));
+      });
       console.log('Creando orden', productId);
       var urlPlaceToPay = this.$store.state.placeToPay.url; //crear orden interna
 
@@ -50918,50 +50924,55 @@ var app = new Vue({
         name: this.comprador.name,
         email: this.comprador.email,
         mobile: this.comprador.mobile,
-        address: this.comprador.address
+        address: this.comprador.address,
+        documento: this.comprador.documento
       }).then(function (res) {
         console.log(res.data);
-        toastr.success(res.data);
+        var orderId = res.data.orderId;
+        var total = res.data.total;
+        toastr.success('Orden creada con exito');
+        axios.post(urlPlaceToPay + '/api/session', {
+          auth: {
+            "login": _this.$store.state.placeToPay.login,
+            "tranKey": _this.$store.state.placeToPay.TranKey,
+            "nonce": "TTJSa05UVmtNR000TlRrM1pqQTRNV1EREprWkRVMU9EZz0=",
+            "seed": "2019-04-25T18:17:23-04:00"
+          },
+          locale: "en_CO",
+          buyer: {
+            "name": _this.comprador.name,
+            "surname": _this.comprador.name,
+            "email": _this.comprador.email,
+            "document": _this.comprador.documento,
+            "documentType": "CC",
+            "mobile": _this.comprador.mobile
+          },
+          payment: {
+            "reference": orderId,
+            "description": "Pago básico de prueba 04032019",
+            "amount": {
+              "currency": "COP",
+              "total": total
+            },
+            "allowPartial": false
+          },
+          expiration: "2019-03-05T00:00:00-05:00",
+          returnUrl: _this.$store.state.placeToPay.url + 'placetopay/callback/' + orderId,
+          ipAddress: "127.0.0.1",
+          userAgent: "PlacetoPay Sandbox"
+        }, {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
+        }).then(function (res) {
+          _this.$store.state.placeToPay.processUrl = res.data.processUrl;
+          _this.$store.state.placeToPay.requestId = res.data.requestId;
+          P.init(_this.$store.state.placeToPay.processUrl);
+          toastr.success(res.data);
+        })["catch"](function (e) {
+          toastr.error(e, 'Error enviando petición a PlacetoPay.');
+        });
       })["catch"](function (e) {
         toastr.error(e, 'Error guardando orden');
-      });
-      axios.post(urlPlaceToPay + '/api/session', {
-        auth: {
-          "login": "usuarioprueba",
-          "tranKey": "jsHJzM3+XG754wXh+aBvi70D9/4=",
-          "nonce": "TTJSa05UVmtNR000TlRrM1pqQTRNV1EREprWkRVMU9EZz0=",
-          "seed": "2019-04-25T18:17:23-04:00"
-        },
-        locale: "en_CO",
-        buyer: {
-          "name": "Deion",
-          "surname": "Ondricka",
-          "email": "dnetix@yopmail.com",
-          "document": "1040035000",
-          "documentType": "CC",
-          "mobile": 3006108300
-        },
-        payment: {
-          "reference": "3210",
-          "description": "Pago básico de prueba 04032019",
-          "amount": {
-            "currency": "COP",
-            "total": "10000"
-          },
-          "allowPartial": false
-        },
-        expiration: "2019-03-05T00:00:00-05:00",
-        returnUrl: "https://mysite.com/response/3210",
-        ipAddress: "127.0.0.1",
-        userAgent: "PlacetoPay Sandbox"
-      }).then(function (res) {
-        console.log(res.data);
-        toastr.success(res.data);
-      })["catch"](function (e) {
-        toastr.error(e, 'Error enviando petición a PlacetoPay.');
-      });
-      P.on('response', function (data) {
-        console.log('placetopay: ', data); //$("#lightbox-response").html(JSON.stringify(data, null, 2));
       });
       console.log('creado');
     }
@@ -51114,7 +51125,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     placeToPay: {
       url: 'https://dev.placetopay.com/redirection/',
       login: '6dd490faf9cb87a9862245da41170ff2',
-      TranKey: '024h1IlD'
+      TranKey: '024h1IlD',
+      processUrl: '',
+      requestId: ''
     }
   },
   mutations: {},

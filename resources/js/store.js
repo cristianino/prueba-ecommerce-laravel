@@ -16,7 +16,9 @@ export default new Vuex.Store({
     placeToPay:{
       url: 'https://dev.placetopay.com/redirection/',
       login: '6dd490faf9cb87a9862245da41170ff2',
-      TranKey: '024h1IlD'
+      TranKey: '024h1IlD',
+      processUrl: '',
+      requestId:''
     }
   },
   mutations: {
