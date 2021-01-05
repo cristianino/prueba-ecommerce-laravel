@@ -11,7 +11,7 @@
         "instalar": "composer install && npm install && cp .env.example .env && php artisan migrate --seed && php artisan key:generate && cp -r temp/products/ storage/app/public/ && php artisan storage:link && exit"
     },
     "devDependencies": {
-        "axios": "^0.19",
+        "axios": "^0.21",
         "bootstrap": "^4.1.0",
         "cross-env": "^5.1",
         "jquery": "^3.5",
